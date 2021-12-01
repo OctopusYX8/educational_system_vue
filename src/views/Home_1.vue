@@ -1,11 +1,14 @@
 <template>
   <div class="main">
-    <header></header>
+    <header>
+        <div class="headerbg"></div>
+      <div class="headermsg">{{ data.year }}年{{ data.month }}月{{ data.day }}日&nbsp{{data.week}}</div>
+    </header>
     <el-row>
       <el-col :span="18"
         ><div class="grid-content bg-purple-light">
           <div class="noticebox">
-              <h4>通知公告</h4>
+            <h4>通知公告</h4>
             <el-table :data="tableData" stripe style="width: 100%">
               <el-table-column prop="date" label="日期" width="180">
               </el-table-column>
@@ -15,7 +18,7 @@
             </el-table>
           </div>
           <div class="downloadbox">
-              <h4>教学文件</h4>
+            <h4>教学文件</h4>
             <el-table :data="tableData" stripe style="width: 100%">
               <el-table-column prop="date" label="日期" width="180">
               </el-table-column>
@@ -69,22 +72,44 @@
       </el-col>
     </el-row>
     <footer>
-<div class="otherweb">
-    <h4>相关站点</h4>
-    <div>
-     <a href="https://sjjx.webvpn.ncut.edu.cn/" target="_blank">北方工大实践教学信息网</a><a href="http://kfk.ncut.edu.cn/ApplicationCenter/" target="_blank">北方工大精品课教学资源平台</a>
-    <a href="http://ncut.smartclass.cn/" target="_blank">北方工业大学智慧课堂</a><a href="http://jwc.ncut.edu.cn/" target="_blank">北方工业大学教务处</a><a href="https://www.webvpn.ncut.edu.cn/" target="_blank">北方工业大学官网首页</a>
-    <a href="http://yjsy.ncut.edu.cn/" target="_blank">北方工业大学研究生院</a><a href="http://lib.ncut.edu.cn/lib/Index.html" target="_blank">北方工大图书馆</a><a href="https://ncut-edu-cn.webvpn.ncut.edu.cn/" target="_blank">北方工大电子邮件系统</a>
-    <a href="http://www.moe.gov.cn/" target="_blank" style="width: 50px;margin-right:10px">教育部</a><a href="https://www.edu.cn/" target="_blank" style="width: 100px;">中国教育网</a>
-</div>
-   
-</div>
-<div class="footmsg">
-<span>北方工业大学&nbsp教务处</span><br>
-   <span>地址:北方工业大学敦品楼101室</span><br>
-   <span>邮编:100144</span><span>&nbsp&nbsp</span>
-   <span>电话:86-10-88803515</span>
-</div>
+      <div class="otherweb">
+        <h4>相关站点</h4>
+        <div>
+          <a href="https://sjjx.webvpn.ncut.edu.cn/" target="_blank"
+            >北方工大实践教学信息网</a
+          ><a href="http://kfk.ncut.edu.cn/ApplicationCenter/" target="_blank"
+            >北方工大精品课教学资源平台</a
+          >
+          <a href="http://ncut.smartclass.cn/" target="_blank"
+            >北方工业大学智慧课堂</a
+          ><a href="http://jwc.ncut.edu.cn/" target="_blank"
+            >北方工业大学教务处</a
+          ><a href="https://www.webvpn.ncut.edu.cn/" target="_blank"
+            >北方工业大学官网首页</a
+          >
+          <a href="http://yjsy.ncut.edu.cn/" target="_blank"
+            >北方工业大学研究生院</a
+          ><a href="http://lib.ncut.edu.cn/lib/Index.html" target="_blank"
+            >北方工大图书馆</a
+          ><a href="https://ncut-edu-cn.webvpn.ncut.edu.cn/" target="_blank"
+            >北方工大电子邮件系统</a
+          >
+          <a
+            href="http://www.moe.gov.cn/"
+            target="_blank"
+            style="width: 50px; margin-right: 10px"
+            >教育部</a
+          ><a href="https://www.edu.cn/" target="_blank" style="width: 100px"
+            >中国教育网</a
+          >
+        </div>
+      </div>
+      <div class="footmsg">
+        <span>北方工业大学&nbsp教务处</span><br />
+        <span>地址:北方工业大学敦品楼101室</span><br />
+        <span>邮编:100144</span><span>&nbsp&nbsp</span>
+        <span>电话:86-10-88803515</span>
+      </div>
     </footer>
   </div>
 </template>
@@ -94,6 +119,11 @@ export default {
   name: "Login",
   data() {
     return {
+      data: {
+        year: "11",
+        month: "",
+        day: "",
+      },
       tableData: [
         {
           date: "2016-05-02",
@@ -115,7 +145,7 @@ export default {
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
         },
-         {
+        {
           date: "2016-05-02",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄",
@@ -134,7 +164,8 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄",
-        },{
+        },
+        {
           date: "2016-05-01",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1519 弄",
@@ -160,6 +191,14 @@ export default {
       ],
     };
   },
+  created: function () {
+    this.data.year = JSON.stringify(new Date().getFullYear()); //年
+    this.data.month = JSON.stringify(new Date().getMonth() + 1); //注意！月份是从0月开始获取的，所以要+1;
+    this.data.day = JSON.stringify(new Date().getDate()); //日
+    let wk=new Date().getDay();
+    const weeks=['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+this.data.week=weeks[wk];
+  },
   methods: {
     test() {
       this.$axios.post("/login").then((res) => {
@@ -180,8 +219,13 @@ export default {
 header {
   width: 100%;
   height: 200px;
-  border-radius:8px 8px 0 0 ;
+  border-radius: 8px 8px 0 0;
   background-color: pink;
+}.headerbg{
+height: 80%;
+}
+.headermsg{
+height: auto;
 }
 .loginbox {
   width: 100%;
@@ -219,30 +263,28 @@ header {
 .managemsg h4 {
   /* background: url(../assets/pic/gjbar3_bg2.gif); */
 }
-.toolbox div{
-    height: 60px;
-    margin-bottom:6px ;
-    background-color: rgb(62, 146, 255);
-    border-radius: 6px;
-    text-align: center;
-    line-height: 60px;
-    cursor: pointer;
+.toolbox div {
+  height: 60px;
+  margin-bottom: 6px;
+  background-color: rgb(62, 146, 255);
+  border-radius: 6px;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer;
 }
-.noticebox /deep/.el-table .el-table__cell{
-    padding: 4px 0; 
+.noticebox /deep/.el-table .el-table__cell {
+  padding: 4px 0;
 }
-.downloadbox /deep/.el-table .el-table__cell{
-    padding: 4px 0; 
+.downloadbox /deep/.el-table .el-table__cell {
+  padding: 4px 0;
 }
-.noticebox h4
-{
-margin: 0px 0 0px 16px;
-padding: 4px 0;
+.noticebox h4 {
+  margin: 0px 0 0px 16px;
+  padding: 4px 0;
 }
-.downloadbox h4
-{
-margin: 0px 0 0px 16px;
-padding: 4px 0;
+.downloadbox h4 {
+  margin: 0px 0 0px 16px;
+  padding: 4px 0;
 }
 .el-row {
   margin-bottom: 20px;
@@ -270,45 +312,44 @@ padding: 4px 0;
   padding: 10px 0;
   background-color: #f9fafc;
 }
-footer{
-    width: 100%;
-    height: 200px;
-    background-color: rgb(216, 216, 216);
+footer {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(216, 216, 216);
 }
-.otherweb{
-    width: 100%;
-    /* text-align: center; */
+.otherweb {
+  width: 100%;
+  /* text-align: center; */
 }
-.otherweb h4{
-    display: inline-block;
-    margin: 8px 0px 8px 48px;
-    /* text-align: center; */
+.otherweb h4 {
+  display: inline-block;
+  margin: 8px 0px 8px 48px;
+  /* text-align: center; */
 }
-.otherweb > div{
-    width: auto;
-    display: inline-block;
+.otherweb > div {
+  width: auto;
+  display: inline-block;
   /* background-color: #fff; */
-    padding-left: 100px;
-    /* text-align: center; */
-    /* margin-right: 20px; */
-
+  padding-left: 100px;
+  /* text-align: center; */
+  /* margin-right: 20px; */
 }
-.otherweb >div a{
-    width: 210px;
-    display: inline-block;
-    margin: 0 20px;
-    color: rgb(97, 137, 255);
-    text-decoration: none
+.otherweb > div a {
+  width: 210px;
+  display: inline-block;
+  margin: 0 20px;
+  color: rgb(97, 137, 255);
+  text-decoration: none;
 }
-.footmsg{
-    text-align: center;
+.footmsg {
+  text-align: center;
 }
-.footmsg::before{
-    content: '';
-    display: block;
-    width: 98%;
-    height: 2px;
-    margin: 10px auto;
-    background-color: rgb(0, 0, 0);
+.footmsg::before {
+  content: "";
+  display: block;
+  width: 98%;
+  height: 2px;
+  margin: 10px auto;
+  background-color: rgba(46, 0, 0, 0.700);
 }
 </style>
