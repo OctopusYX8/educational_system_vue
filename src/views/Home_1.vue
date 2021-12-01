@@ -56,8 +56,8 @@
           </div>
           <div class="managemsg">
             <h4>教务管理信息</h4>
-            <ul :key="i" v-for="(item, i) in managemsgdata">
-              <li>
+            <ul>
+              <li :key="i" v-for="(item, i) in managemsgdata">
                 <a href="javascript:;">{{ item }}</a>
               </li>
             </ul>
@@ -255,10 +255,14 @@ height: auto;
 }
 .managemsg ul {
   padding-left: 20px;
-  margin: 8px 0 8px 0;
+  
 }
 .managemsg li {
+    margin: 8px 0 8px 0;margin: 8px 0 8px 0;
   line-height: 1;
+}
+.managemsg li a {
+   text-decoration: none;
 }
 .managemsg h4 {
   /* background: url(../assets/pic/gjbar3_bg2.gif); */
