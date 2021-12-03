@@ -64,7 +64,17 @@
           </div>
           <div class="toolbox">
             <div>课表查询</div>
-            <div>成绩单打印</div>
+            <div @mouseenter="ifshow.chengjidan=true,moveanimater($event)" @mouseleave="ifshow.chengjidan=false">成绩单打印</div>
+            <transition name="chengjidan">
+            <ul v-show="ifshow.chengjidan" @mouseenter="ifshow.chengjidan=true,moveanimater($event)" @mouseleave="ifshow.chengjidan=false" >
+                <li><a>按课程打印成绩单</a></li>
+                <li><a>打印免修(补考、缓考)成绩单</a></li>
+                <li><a>按课程打印记录单</a></li>
+                <li><a>按课程打印临时记录单</a></li>
+                <li><a>打印循环课程成绩单</a></li>
+                <li><a>打印累加课程成绩单</a></li>
+            </ul>
+            </transition>
             <div>规章制度下载</div>
             <div>表格下载</div>
           </div>
@@ -123,6 +133,9 @@ export default {
         year: "11",
         month: "",
         day: "",
+      },
+      ifshow:{
+          chengjidan:false,
       },
       tableData: [
         {
@@ -206,6 +219,11 @@ this.data.week=weeks[wk];
         console.log(res.data);
       });
     },
+    moveanimater(e){
+      console.log('1');
+      console.log(e);
+
+    }
   },
 };
 </script>
@@ -269,13 +287,20 @@ height: auto;
 }
 .toolbox div {
   height: 60px;
-  margin-bottom: 6px;
+  margin-top: 6px;
   background-color: rgb(62, 146, 255);
   border-radius: 6px;
   text-align: center;
   line-height: 60px;
   cursor: pointer;
+  z-index:99;
 }
+.toolbox ul li{
+  margin: 0;
+  z-index: 98;
+  /* box-sizing: border-box; */
+}
+
 .noticebox /deep/.el-table .el-table__cell {
   padding: 4px 0;
 }
@@ -355,5 +380,23 @@ footer {
   height: 2px;
   margin: 10px auto;
   background-color: rgba(46, 0, 0, 0.700);
+}
+/* 动画过渡 */
+.chengjidan-enter-active, .chengjidan-leave-active{
+
+    transition: all 0.5s ease
+}
+.chengjidan-enter, .chengjidan-leave-to {
+ 
+ overflow: hidden;
+width: 185px;
+height: 0px;
+   /* transform: translateY(-10px); */
+}
+.chengjidan-enter-to, .chengjidan-leave {
+overflow: hidden;
+ width: 185px;
+height: 147px;
+
 }
 </style>
